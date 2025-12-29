@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashank - Embedded Systems Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #34495e;
+            --accent: #3498db;
+            --text: #333;
+            --text-light: #666;
+            --bg: #ffffff;
+            --bg-alt: #f8f9fa;
+            --border: #e1e8ed;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            color: #ecf0f1;
+            margin-bottom: 20px;
+        }
+
+        header .status {
+            display: inline-block;
+            background: var(--accent);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--secondary);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-alt);
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* About */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .about-content strong {
+            color: var(--primary);
+        }
+
+        /* Projects */
+        .project {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: box-shadow 0.3s;
+        }
+
+        .project:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .project h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .project-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .tag {
+            background: var(--bg-alt);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            border: 1px solid var(--border);
+        }
+
+        .project-description {
+            margin: 20px 0;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .project-highlights {
+            background: var(--bg-alt);
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+
+        .project-highlights ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-highlights li {
+            padding: 6px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .project-highlights li:before {
+            content: "▸";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--primary);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-category h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            padding: 6px 0;
+            color: var(--text-light);
+        }
+
+        /* Experience */
+        .experience-item {
+            background: white;
+            border-left: 4px solid var(--accent);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+        }
+
+        .experience-item h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .experience-item .company {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .experience-item .duration {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .experience-item ul {
+            margin-left: 20px;
+            color: var(--text);
+        }
+
+        .experience-item li {
+            margin-bottom: 8px;
+        }
+
+        /* Contact */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .contact-links a:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header .subtitle {
+                font-size: 1rem;
+            }
+
+            nav .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .project-header {
+                flex-direction: column;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Shashank</h1>
+            <div class="subtitle">Embedded Systems & IoT Engineer</div>
+            <div class="status">Seeking Spring/Summer 2026 Co-op</div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section id="about">
+        <div class="container">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>Master's student in Software Engineering Systems at <strong>Northeastern University</strong> (GPA: 3.89) with professional experience developing embedded control systems firmware at <strong>Ducom Aerospace</strong>. Specialized in <strong>embedded systems</strong>, <strong>real-time operating systems</strong>, <strong>IoT solutions</strong>, and <strong>cloud infrastructure</strong> with proven ability to deliver high-performance, reliable systems across multiple domains.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>Featured Projects</h2>
+
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <h3>Silkworm Environmental Control IoT System</h3>
+                        <div class="project-meta">Distributed IoT Platform | Academic Project 2024</div>
+                    </div>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">MQTT</span>
+                    <span class="tag">CoAP</span>
+                    <span class="tag">Redis</span>
+                    <span class="tag">Ubidots Cloud</span>
+                    <span class="tag">Raspberry Pi</span>
+                </div>
+                <div class="project-description">
+                    Comprehensive distributed IoT platform for silkworm environmental monitoring and control. Implemented end-to-end system with multiple communication protocols, cloud integration, and real-time sensor data management with persistent storage.
+                </div>
+                <div class="project-highlights">
+                    <ul>
+                        <li><strong>99.8% message delivery success rate</strong> across MQTT/CoAP protocols</li>
+                        <li><strong>Sub-3 second latency</strong> for sensor-to-cloud data pipeline</li>
+                        <li>Custom MQTT client/server implementation with QoS support for reliable messaging</li>
+                        <li>CoAP server with RESTful resource management (GET/POST/PUT/DELETE)</li>
+                        <li>Redis integration for persistent sensor data storage and retrieval</li>
+                        <li>Ubidots cloud platform integration with real-time dashboard visualization</li>
+                        <li>Hardware emulation using Sense HAT API for temperature/humidity sensors</li>
+                    </ul>
+                </div>
+                <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <h3>Embedded Control Systems Firmware</h3>
+                        <div class="project-meta">Ducom Aerospace | Aug 2023 - Jun 2024</div>
+                    </div>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">C</span>
+                    <span class="tag">ARM Cortex-M4</span>
+                    <span class="tag">PID Control</span>
+                    <span class="tag">CAN/SPI/I2C/UART</span>
+                    <span class="tag">Servo Motors</span>
+                    <span class="tag">EasyEDA</span>
+                </div>
+                <div class="project-description">
+                    Developed high-performance embedded firmware for industrial control systems including PID-controlled heater systems and precision servo motor control. Integrated multiple communication protocols for real-time data exchange and system synchronization.
+                </div>
+                <div class="project-highlights">
+                    <ul>
+                        <li><strong>20% improvement</strong> in temperature regulation accuracy using Ziegler-Nichols PID tuning</li>
+                        <li><strong>35% efficiency boost</strong> in servo motor control using custom transfer function implementation</li>
+                        <li><strong>30% improvement</strong> in system reliability through protocol integration (CAN, SPI, I2C, UART)</li>
+                        <li><strong>10% increase</strong> in system output via TCP socket programming for real-time communication</li>
+                        <li>PCB design and layout optimization using EasyEDA</li>
+                        <li>Unit and integration testing with comprehensive code reviews</li>
+                        <li>Git-based version control improving collaboration across 5+ projects</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <h3>Cloud-Native Web Application</h3>
+                        <div class="project-meta">AWS Infrastructure Project | Jan 2025 - Mar 2025</div>
+                    </div>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">Spring Boot</span>
+                    <span class="tag">AWS</span>
+                    <span class="tag">Terraform</span>
+                    <span class="tag">GitHub Actions</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Docker</span>
+                </div>
+                <div class="project-description">
+                    Built and deployed cloud-native application using Infrastructure as Code (IaC) with complete CI/CD automation. Implemented RESTful APIs with Spring Boot and managed scalable AWS infrastructure using Terraform for consistent deployments.
+                </div>
+                <div class="project-highlights">
+                    <ul>
+                        <li><strong>90% reduction</strong> in operational effort through automated CI/CD pipelines</li>
+                        <li>End-to-end GitHub Actions pipelines for automated AMI builds with Packer</li>
+                        <li>Infrastructure provisioning using Terraform modules for AWS and GCP</li>
+                        <li>PostgreSQL database backed by Amazon RDS for scalable data storage</li>
+                        <li>AWS CloudWatch monitoring and Auto Scaling Groups for high availability</li>
+                        <li>Version-controlled infrastructure ensuring consistent deployments across environments</li>
+                    </ul>
+                </div>
+                <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <h3>Car Black Box System</h3>
+                        <div class="project-meta">Emertxe Information Technologies | Training Project</div>
+                    </div>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">C</span>
+                    <span class="tag">Embedded Linux</span>
+                    <span class="tag">AVR</span>
+                    <span class="tag">I2C</span>
+                    <span class="tag">EEPROM</span>
+                </div>
+                <div class="project-description">
+                    Embedded automotive data logger capturing and storing critical vehicle parameters. Implements circular buffer architecture for event recording with persistent storage and retrieval mechanisms.
+                </div>
+                <div class="project-highlights">
+                    <ul>
+                        <li>Real-time event logging with timestamp and speed data</li>
+                        <li>EEPROM-based persistent storage for crash-resistant data retention</li>
+                        <li>Password-protected configuration interface</li>
+                        <li>Efficient circular buffer implementation for continuous recording</li>
+                    </ul>
+                </div>
+                <a href="#" class="project-link">View Repository →</a>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <h3>WolfSSL Satellite TV Encryption System</h3>
+                        <div class="project-meta">Embedded Security Project</div>
+                    </div>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">C</span>
+                    <span class="tag">WolfSSL</span>
+                    <span class="tag">AES Encryption</span>
+                    <span class="tag">Embedded Systems</span>
+                </div>
+                <div class="project-description">
+                    Implemented secure data encryption/decryption for satellite TV streaming on resource-constrained embedded systems using WolfSSL library. Integrated AES encryption with key exchange protocols optimized for real-time performance.
+                </div>
+                <div class="project-highlights">
+                    <ul>
+                        <li>Real-time secure streaming with AES encryption on embedded devices</li>
+                        <li>Optimized WolfSSL integration for resource-constrained environments</li>
+                        <li>Key exchange implementation for secure satellite communications</li>
+                        <li>Performance tuning for low-latency encrypted data transmission</li>
+                    </ul>
+                </div>
+                <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <h3>Modular Embedded System Simulator</h3>
+                        <div class="project-meta">C++ & Qt Framework Project</div>
+                    </div>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">C++</span>
+                    <span class="tag">Qt Framework</span>
+                    <span class="tag">OOP</span>
+                    <span class="tag">STL</span>
+                    <span class="tag">GUI Development</span>
+                </div>
+                <div class="project-description">
+                    Designed a comprehensive embedded system simulator applying object-oriented design principles. Features interactive GUI for real-time component monitoring and control with efficient STL-based data management.
+                </div>
+                <div class="project-highlights">
+                    <ul>
+                        <li>Applied OOP principles: inheritance, polymorphism, abstraction, and encapsulation</li>
+                        <li>Real-time simulation of embedded system components</li>
+                        <li>Interactive Qt-based GUI for live monitoring and control</li>
+                        <li>STL containers for efficient data management and performance</li>
+                        <li>Modular architecture enabling easy component addition and testing</li>
+                    </ul>
+                </div>
+                <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div>
+                        <h3>TCP Chat Room</h3>
+                        <div class="project-meta">Networking Project</div>
+                    </div>
+                </div>
+                <div class="project-tags">
+                    <span class="tag">C</span>
+                    <span class="tag">Socket Programming</span>
+                    <span class="tag">TCP/IP</span>
+                    <span class="tag">Multi-threading</span>
+                </div>
+                <div class="project-description">
+                    Constructed multi-client TCP chat application using socket programming and TCP/IP protocol stack for secure real-time communication.
+                </div>
+                <div class="project-highlights">
+                    <ul>
+                        <li>Multi-threaded server handling concurrent client connections</li>
+                        <li>TCP/IP protocol implementation for reliable data transmission</li>
+                        <li>Socket programming in C for low-level network communication</li>
+                        <li>Real-time message broadcasting with connection management</li>
+                    </ul>
+                </div>
+                <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>C/C++</li>
+                        <li>Python</li>
+                        <li>Java</li>
+                        <li>Rust</li>
+                        <li>Shell Scripting (Bash)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Embedded Systems</h3>
+                    <ul>
+                        <li>ARM Cortex-M4</li>
+                        <li>ATmega2560</li>
+                        <li>ESP32</li>
+                        <li>PIC16F877A</li>
+                        <li>Raspberry Pi</li>
+                        <li>FreeRTOS</li>
+                        <li>PWM Control</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Protocols & Communication</h3>
+                    <ul>
+                        <li>MQTT, CoAP, HTTP</li>
+                        <li>CAN, UART, I2C, SPI</li>
+                        <li>TCP/IP, UDP, ICMP</li>
+                        <li>SNMP, SMTP</li>
+                        <li>Socket Programming</li>
+                        <li>WolfSSL/TLS</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Tools & Platforms</h3>
+                    <ul>
+                        <li>Git/GitHub</li>
+                        <li>Linux (Ubuntu)</li>
+                        <li>MPLAB X IDE</li>
+                        <li>Eclipse</li>
+                        <li>EasyEDA (PCB Design)</li>
+                        <li>MATLAB</li>
+                        <li>GDB Debugger</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Concepts</h3>
+                    <ul>
+                        <li>Real-Time Operating Systems</li>
+                        <li>PID Control Systems</li>
+                        <li>Data Structures & Algorithms</li>
+                        <li>Interrupt Handling</li>
+                        <li>Memory Management</li>
+                        <li>IoT Architecture</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Cloud & DevOps</h3>
+                    <ul>
+                        <li>AWS (EC2, S3, RDS, VPC, ALB, AMI)</li>
+                        <li>Terraform (IaC)</li>
+                        <li>CI/CD (GitHub Actions)</li>
+                        <li>Docker</li>
+                        <li>Ubidots IoT Platform</li>
+                        <li>CloudWatch Monitoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2>Experience</h2>
+
+            <div class="experience-item">
+                <h3>Embedded Software Engineer</h3>
+                <div class="company">Ducom Aerospace</div>
+                <div class="duration">Aug 2023 - Jun 2024 | Bengaluru, India</div>
+                <ul>
+                    <li>Developed high-performance C-based firmware for PID-controlled heater systems using Ziegler-Nichols tuning, achieving 20% improvement in temperature regulation accuracy</li>
+                    <li>Engineered precision motion control algorithms for servo motor systems with Teknik controller, implementing custom transfer functions that boosted efficiency by 35% over trial-and-error methods</li>
+                    <li>Integrated communication protocols (CAN, SPI, I2C, UART) for real-time data exchange, improving system reliability by 30%</li>
+                    <li>Utilized TCP socket programming to enable real-time data communication with minimal delay, increasing system output by 10%</li>
+                    <li>Designed PCBs using EasyEDA with optimized layouts and comprehensive system documentation</li>
+                    <li>Applied version control using Git across 5+ projects, improving collaboration efficiency and code modularity</li>
+                    <li>Participated in Agile-style teams with sprint reviews, code integration, and comprehensive unit/integration testing</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Master of Science in Software Engineering Systems</h3>
+                <div class="company">Northeastern University, Boston, MA</div>
+                <div class="duration">Expected May 2026 | GPA: 3.89</div>
+                <ul>
+                    <li>Relevant Coursework: Programming the Internet of Things, Object-Oriented Design (Java), Computer Networks, Operating Systems, Data Structures & Algorithms, High-End Device Development</li>
+                    <li>IoT Project: Developed distributed IoT platform for silkworm environmental control with 99.8% message delivery reliability and sub-3 second latency</li>
+                    <li>Cloud Project: Built cloud-native web application with Spring Boot, AWS infrastructure provisioned via Terraform, and automated CI/CD pipelines</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Embedded Systems Training</h3>
+                <div class="company">Emertxe Information Technologies</div>
+                <div class="duration">Aug 2022 - May 2023 | Bengaluru, India</div>
+                <ul>
+                    <li>Developed LSB Image Steganography algorithm in C/C++ for secure message encoding in BMP images with 20% enhanced security using bit manipulation and file handling</li>
+                    <li>Built Inverted Search Index using hashing and linked lists, achieving 90-95% collision-free lookups with 20% efficiency improvement</li>
+                    <li>Created Arbitrary Precision Calculator for large number operations with 0% error rate using linked lists and advanced data structures</li>
+                    <li>Designed Car Black Box system with I2C, UART, and EEPROM logging gear changes, collisions, and speed data with timestamps</li>
+                    <li>Developed Mini Shell supporting Linux commands using IPC (fork, exec), system calls, multithreading, and signals</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="contact-links">
+                <a href="mailto:sh.s@northeastern.edu">
+                    <span>📧</span>
+                    <span>sh.s@northeastern.edu</span>
+                </a>
+                <a href="https://github.com/shashanksh1109" target="_blank">
+                    <span>💻</span>
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/shashank-s-h-651970349/" target="_blank">
+                    <span>💼</span>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shashank. Built for GitHub Pages.</p>
+        </div>
+    </footer>
+</body>
+</html>
