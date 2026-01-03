@@ -127,13 +127,38 @@
             background: white;
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 30px;
+            padding: 0;
             margin-bottom: 30px;
             transition: box-shadow 0.3s;
+            overflow: hidden;
         }
 
         .project:hover {
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            filter: blur(2px);
+            transform: scale(1.1);
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 62, 80, 0.6);
+        }
+
+        .project-content {
+            padding: 30px;
         }
 
         .project-header {
@@ -480,12 +505,14 @@
             <h2>Featured Projects</h2>
 
             <div class="project">
-                <div class="project-header">
-                    <div>
-                        <h3>Silkworm Environmental Control IoT System</h3>
-                        <div class="project-meta">Distributed IoT Platform | Academic Project 2024</div>
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?w=800&q=80');"></div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3>Silkworm Environmental Control IoT System</h3>
+                            <div class="project-meta">Distributed IoT Platform | Academic Project 2024</div>
+                        </div>
                     </div>
-                </div>
                 <div class="project-tags">
                     <span class="tag">Python</span>
                     <span class="tag">Java(Spring Boot)</span>
@@ -509,11 +536,14 @@
                         <li>Hardware emulation using Sense HAT API for temperature/humidity sensors</li>
                     </ul>
                 </div>
-                <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+                                    <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+                </div>
             </div>
 
             <div class="project">
-                <div class="project-header">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80');"></div>
+                <div class="project-content">
+                    <div class="project-header">
                     <div>
                         <h3>Embedded Control Systems Firmware</h3>
                         <div class="project-meta">Ducom Aerospace | Aug 2023 - Jun 2024</div>
@@ -541,10 +571,13 @@
                         <li>Git-based version control improving collaboration across 5+ projects</li>
                     </ul>
                 </div>
+                </div>
             </div>
 
             <div class="project">
-                <div class="project-header">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80');"></div>
+                <div class="project-content">
+                    <div class="project-header">
                     <div>
                         <h3>Cloud-Native Web Application</h3>
                         <div class="project-meta">AWS Infrastructure Project | Jan 2025 - Mar 2025</div>
@@ -572,10 +605,13 @@
                     </ul>
                 </div>
                 <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+                </div>
             </div>
 
             <div class="project">
-                <div class="project-header">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80');"></div>
+                <div class="project-content">
+                    <div class="project-header">
                     <div>
                         <h3>Car Black Box System</h3>
                         <div class="project-meta">Emertxe Information Technologies | Training Project</div>
@@ -600,10 +636,13 @@
                     </ul>
                 </div>
                 <a href="#" class="project-link">View Repository →</a>
+                </div>
             </div>
 
             <div class="project">
-                <div class="project-header">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80');"></div>
+                <div class="project-content">
+                    <div class="project-header">
                     <div>
                         <h3>WolfSSL Satellite TV Encryption System</h3>
                         <div class="project-meta">Embedded Security Project</div>
@@ -627,10 +666,13 @@
                     </ul>
                 </div>
                 <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+                </div>
             </div>
 
             <div class="project">
-                <div class="project-header">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1555952494-efd681c7e3f9?w=800&q=80');"></div>
+                <div class="project-content">
+                    <div class="project-header">
                     <div>
                         <h3>Modular Embedded System Simulator</h3>
                         <div class="project-meta">C++ & Qt Framework Project</div>
@@ -656,10 +698,13 @@
                     </ul>
                 </div>
                 <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+                </div>
             </div>
 
             <div class="project">
-                <div class="project-header">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=800&q=80');"></div>
+                <div class="project-content">
+                    <div class="project-header">
                     <div>
                         <h3>TCP Chat Room</h3>
                         <div class="project-meta">Networking Project</div>
@@ -683,6 +728,7 @@
                     </ul>
                 </div>
                 <a href="https://github.com/shashanksh1109" class="project-link">View Repository →</a>
+                </div>
             </div>
         </div>
     </section>
