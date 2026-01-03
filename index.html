@@ -285,12 +285,18 @@
             margin-bottom: 8px;
         }
 
-        /* Contact */
+        /* Contact Form */
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
         .contact-links {
             display: flex;
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
+            margin-bottom: 50px;
         }
 
         .contact-links a {
@@ -311,6 +317,96 @@
             border-color: var(--accent);
             color: var(--accent);
             transform: translateY(-2px);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .contact-form h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary);
+        }
+
+        .submit-btn:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         /* Footer */
@@ -343,6 +439,10 @@
 
             .skills-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 25px;
             }
         }
     </style>
@@ -715,19 +815,45 @@
     <section id="contact">
         <div class="container">
             <h2>Get In Touch</h2>
-            <div class="contact-links">
-                <a href="mailto:sh.s@northeastern.edu">
-                    <span>📧</span>
-                    <span>sh.s@northeastern.edu</span>
-                </a>
-                <a href="https://github.com/shashanksh1109" target="_blank">
-                    <span>💻</span>
-                    <span>GitHub</span>
-                </a>
-                <a href="https://www.linkedin.com/in/shashank-s-h-651970349/" target="_blank">
-                    <span>💼</span>
-                    <span>LinkedIn</span>
-                </a>
+            <div class="contact-container">
+                <div class="contact-links">
+                    <a href="mailto:sh.s@northeastern.edu">
+                        <span>📧</span>
+                        <span>sh.s@northeastern.edu</span>
+                    </a>
+                    <a href="https://github.com/shashanksh1109" target="_blank">
+                        <span>💻</span>
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/shashank-s-h-651970349/" target="_blank">
+                        <span>💼</span>
+                        <span>LinkedIn</span>
+                    </a>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company/Organization</label>
+                            <input type="text" id="company" name="company">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        <div id="formMessage" class="form-message"></div>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -737,6 +863,47 @@
             <p>&copy; 2025 Shashank. Built for GitHub Pages.</p>
         </div>
     </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            formMessage.style.display = 'none';
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value || 'Not provided',
+                message: document.getElementById('message').value
+            };
+            
+            // Create mailto link (this will open email client)
+            const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
+            const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\nCompany: ${formData.company}\n\nMessage:\n${formData.message}`);
+            const mailtoLink = `mailto:sh.s@northeastern.edu?subject=${subject}&body=${body}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            setTimeout(() => {
+                formMessage.className = 'form-message success';
+                formMessage.textContent = 'Opening your email client... If it doesn\'t open automatically, please email me directly at sh.s@northeastern.edu';
+                formMessage.style.display = 'block';
+                
+                // Reset form
+                this.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }, 500);
+        });
+    </script>
 </body>
 </html>
-
