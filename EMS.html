@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMS — Distributed Smart Building Energy Management System</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230a0a0f'/><text x='50' y='68' font-size='42' font-family='monospace' font-weight='bold' fill='%2300d4ff' text-anchor='middle'>SSH</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07080d;--bg2:#0d0f18;--bg3:#12141f;--panel:#161824;
+  --border:#1e2133;--border2:#2a2f4a;
+  --cyan:#00d4ff;--cyan2:#00a8cc;--green:#00ff88;
+  --amber:#ffb300;--red:#ff4757;--purple:#a855f7;
+  --text:#e8eaf0;--text2:#8892a4;--text3:#4a5268;
+}
+html{scroll-behavior:smooth}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px}
+body{
+  font-family:'JetBrains Mono',monospace;
+  background:var(--bg);color:var(--text);
+  line-height:1.6;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,212,255,0.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;
+}
+
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 40px;
+  background:rgba(7,8,13,0.9);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:1rem;color:var(--cyan);
+  text-decoration:none;letter-spacing:0.05em;
+}
+.nav-back{
+  font-size:0.78rem;color:var(--text2);
+  text-decoration:none;letter-spacing:0.1em;
+  text-transform:uppercase;transition:color 0.2s;
+  display:flex;align-items:center;gap:6px;
+}
+.nav-back:hover{color:var(--cyan)}
+
+/* HERO */
+.hero{
+  padding:120px 40px 80px;
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.2);
+  padding:5px 14px;border-radius:4px;
+  font-size:0.72rem;color:var(--cyan);
+  letter-spacing:0.15em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,5vw,3.8rem);
+  font-weight:800;line-height:1.1;margin-bottom:16px;
+}
+.hero h1 span{color:var(--cyan)}
+.hero-sub{
+  font-size:0.92rem;color:var(--text2);
+  max-width:700px;line-height:1.9;margin-bottom:40px;
+}
+.hero-sub strong{color:var(--text)}
+.hero-meta{
+  display:flex;gap:40px;flex-wrap:wrap;
+  padding:24px 0;border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);margin-bottom:60px;
+}
+.meta-item{}
+.meta-label{font-size:0.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:4px}
+.meta-val{font-size:0.88rem;color:var(--text);font-weight:500}
+
+/* METRICS */
+.metrics-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;margin-bottom:80px;
+}
+.metric-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:6px;padding:24px 20px;
+  text-align:center;
+}
+.metric-num{
+  font-family:'Syne',sans-serif;
+  font-size:2rem;font-weight:800;
+  color:var(--cyan);display:block;margin-bottom:6px;
+}
+.metric-lbl{
+  font-size:0.7rem;color:var(--text3);
+  text-transform:uppercase;letter-spacing:0.1em;
+}
+
+/* SECTIONS */
+.page{max-width:1100px;margin:0 auto;padding:0 40px 100px;position:relative;z-index:1}
+
+.section-label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.68rem;color:var(--cyan);
+  letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;
+}
+.section-label::before{content:'';width:20px;height:1px;background:var(--cyan)}
+h2{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(1.4rem,3vw,2rem);
+  font-weight:800;margin-bottom:32px;color:var(--text);
+}
+h2 span{color:var(--cyan)}
+
+/* ARCH DIAGRAM */
+.arch-container{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;padding:40px 32px;
+  margin-bottom:80px;overflow-x:auto;
+}
+.arch-flow{
+  display:flex;align-items:center;
+  gap:0;min-width:800px;
+}
+.arch-node{
+  flex:1;background:var(--bg3);
+  border:1px solid var(--border2);
+  border-radius:6px;padding:16px 12px;
+  text-align:center;position:relative;
+}
+.arch-node.highlighted{
+  border-color:rgba(0,212,255,0.4);
+  background:rgba(0,212,255,0.05);
+}
+.arch-node-icon{font-size:1.4rem;margin-bottom:8px;display:block}
+.arch-node-name{
+  font-family:'Syne',sans-serif;
+  font-size:0.78rem;font-weight:700;
+  color:var(--text);margin-bottom:4px;
+}
+.arch-node-tech{font-size:0.65rem;color:var(--text3);line-height:1.4}
+.arch-arrow{
+  width:32px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--cyan);font-size:1rem;
+}
+
+/* LAYER SECTIONS */
+.layer{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;margin-bottom:24px;
+  overflow:hidden;
+}
+.layer-header{
+  display:flex;align-items:center;gap:16px;
+  padding:20px 28px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;user-select:none;
+}
+.layer-num{
+  width:32px;height:32px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,212,255,0.1);
+  border:1px solid rgba(0,212,255,0.2);
+  border-radius:4px;
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:0.85rem;color:var(--cyan);
+  flex-shrink:0;
+}
+.layer-title{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;color:var(--text);flex:1;
+}
+.layer-subtitle{font-size:0.75rem;color:var(--text3)}
+.layer-toggle{
+  font-size:0.8rem;color:var(--text3);
+  transition:transform 0.3s;flex-shrink:0;
+}
+.layer-toggle.open{transform:rotate(180deg)}
+.layer-body{
+  padding:28px;
+  display:none;
+}
+.layer-body.open{display:block}
+.layer-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+
+.detail-block{margin-bottom:24px}
+.detail-block h4{
+  font-family:'Syne',sans-serif;
+  font-size:0.88rem;font-weight:700;
+  color:var(--cyan);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.detail-block h4::before{
+  content:'';width:3px;height:14px;
+  background:var(--cyan);border-radius:2px;
+}
+.detail-block p,.detail-block li{
+  font-size:0.82rem;color:var(--text2);
+  line-height:1.8;
+}
+.detail-block ul{
+  list-style:none;display:flex;
+  flex-direction:column;gap:6px;
+}
+.detail-block li{padding-left:14px;position:relative}
+.detail-block li::before{
+  content:'▸';position:absolute;left:0;
+  color:var(--cyan);font-size:0.68rem;top:3px;
+}
+.detail-block li strong{color:var(--text)}
+
+/* CODE BLOCK */
+.code-block{
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:6px;overflow-x:auto;
+  margin-top:16px;
+}
+.code-header{
+  display:flex;justify-content:space-between;
+  align-items:center;padding:10px 16px;
+  border-bottom:1px solid var(--border);
+}
+.code-lang{
+  font-size:0.68rem;color:var(--cyan);
+  text-transform:uppercase;letter-spacing:0.15em;
+}
+.code-title{font-size:0.72rem;color:var(--text3)}
+pre{
+  padding:20px;font-size:0.78rem;
+  line-height:1.7;color:var(--text2);
+  overflow-x:auto;
+}
+.kw{color:#c792ea}
+.fn{color:#82aaff}
+.str{color:#c3e88d}
+.cm{color:var(--text3)}
+.num{color:#f78c6c}
+.type{color:#ffcb6b}
+
+/* DECISION BOX */
+.decision-box{
+  background:rgba(255,179,0,0.05);
+  border:1px solid rgba(255,179,0,0.2);
+  border-left:3px solid var(--amber);
+  border-radius:4px;padding:20px 24px;
+  margin:16px 0;
+}
+.decision-title{
+  font-size:0.75rem;color:var(--amber);
+  text-transform:uppercase;letter-spacing:0.15em;
+  margin-bottom:10px;font-weight:700;
+}
+.decision-box p{font-size:0.82rem;color:var(--text2);line-height:1.8}
+.decision-box strong{color:var(--text)}
+
+/* DEBUG BOX */
+.debug-box{
+  background:rgba(0,255,136,0.04);
+  border:1px solid rgba(0,255,136,0.15);
+  border-left:3px solid var(--green);
+  border-radius:4px;padding:20px 24px;margin:16px 0;
+}
+.debug-title{
+  font-size:0.75rem;color:var(--green);
+  text-transform:uppercase;letter-spacing:0.15em;
+  margin-bottom:10px;font-weight:700;
+}
+.debug-box p,.debug-box li{font-size:0.82rem;color:var(--text2);line-height:1.8}
+.debug-box strong{color:var(--text)}
+
+/* PROTOCOL DIAGRAM */
+.protocol-diagram{
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:6px;padding:24px;margin-top:16px;
+  font-size:0.78rem;color:var(--text2);
+}
+.byte-row{
+  display:flex;gap:2px;margin-bottom:12px;flex-wrap:wrap;
+}
+.byte{
+  flex:1;min-width:36px;max-width:60px;
+  background:var(--panel);border:1px solid var(--border2);
+  border-radius:3px;padding:8px 4px;text-align:center;
+}
+.byte-num{font-size:0.62rem;color:var(--text3);display:block;margin-bottom:4px}
+.byte-name{font-size:0.65rem;color:var(--cyan);font-weight:500}
+.byte.field-long{flex:2}
+.byte.field-xl{flex:3}
+.byte.field-checksum{border-color:rgba(255,179,0,0.3)}
+.byte.field-checksum .byte-name{color:var(--amber)}
+
+/* TAGS */
+.tag-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.tag{
+  background:rgba(0,212,255,0.08);
+  border:1px solid rgba(0,212,255,0.15);
+  padding:3px 10px;border-radius:3px;
+  font-size:0.7rem;color:var(--cyan);
+}
+.tag.neutral{
+  background:rgba(255,255,255,0.04);
+  border-color:var(--border);color:var(--text3);
+}
+
+/* CTA */
+.cta-row{
+  display:flex;gap:16px;flex-wrap:wrap;
+  padding:40px 0 0;border-top:1px solid var(--border);
+  margin-top:40px;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 24px;font-family:'JetBrains Mono',monospace;
+  font-size:0.8rem;font-weight:500;text-decoration:none;
+  border-radius:4px;transition:all 0.2s;letter-spacing:0.05em;
+}
+.btn-primary{background:var(--cyan);color:var(--bg);border:1px solid var(--cyan)}
+.btn-primary:hover{background:var(--cyan2);transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-1px)}
+
+footer{
+  background:var(--bg);border-top:1px solid var(--border);
+  padding:28px 40px;text-align:center;position:relative;z-index:1;
+}
+footer p{font-size:0.72rem;color:var(--text3)}
+footer span{color:var(--cyan)}
+
+@media(max-width:768px){
+  nav{padding:14px 20px}
+  .hero,.page{padding-left:20px;padding-right:20px}
+  .metrics-row{grid-template-columns:repeat(2,1fr)}
+  .layer-grid{grid-template-columns:1fr}
+  .arch-flow{flex-direction:column;min-width:unset}
+  .arch-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SSH</a>
+  <a href="index.html#projects" class="nav-back">← Back to Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">★ Flagship Project</div>
+  <h1>Distributed Smart Building<br><span>Energy Management System</span></h1>
+  <p class="hero-sub">
+    A full-stack embedded IoT system built from scratch — from a <strong>custom 18-byte binary protocol</strong> in embedded C
+    all the way to a <strong>Terraform-provisioned AWS stack</strong> with a live React dashboard.
+    Every layer designed, debugged, and deployed independently.
+  </p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-val">Jan 2025 — Present</div></div>
+    <div class="meta-item"><div class="meta-label">Stack Layers</div><div class="meta-val">4 (Embedded → Gateway → Backend → Cloud)</div></div>
+    <div class="meta-item"><div class="meta-label">Languages</div><div class="meta-val">C · Python · Java · HCL · YAML</div></div>
+    <div class="meta-item"><div class="meta-label">Repo</div><div class="meta-val"><a href="https://github.com/shashanksh1109/embedded-energy-monitoring-system" target="_blank" style="color:var(--cyan);text-decoration:none">github/shashanksh1109 →</a></div></div>
+  </div>
+
+  <!-- METRICS -->
+  <div class="metrics-row">
+    <div class="metric-card">
+      <span class="metric-num">90%</span>
+      <div class="metric-lbl">Ops effort reduced<br>via CI/CD automation</div>
+    </div>
+    <div class="metric-card">
+      <span class="metric-num">18B</span>
+      <div class="metric-lbl">Binary protocol packet<br>vs ~80B JSON equivalent</div>
+    </div>
+    <div class="metric-card">
+      <span class="metric-num">1kHz</span>
+      <div class="metric-lbl">Sensor sampling rate<br>40% CPU reduction via DMA</div>
+    </div>
+    <div class="metric-card">
+      <span class="metric-num">Multi-AZ</span>
+      <div class="metric-lbl">RDS PostgreSQL<br>Auto Scaling 2–10 instances</div>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- ARCHITECTURE DIAGRAM -->
+  <div class="section-label">Architecture</div>
+  <h2>System <span>overview</span></h2>
+  <div class="arch-container">
+    <div class="arch-flow">
+      <div class="arch-node highlighted">
+        <span class="arch-node-icon">🔌</span>
+        <div class="arch-node-name">Edge Sensors</div>
+        <div class="arch-node-tech">Embedded C<br>ESP32 / DHT22<br>FreeRTOS</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node highlighted">
+        <span class="arch-node-icon">📦</span>
+        <div class="arch-node-name">Binary Protocol</div>
+        <div class="arch-node-tech">18-byte struct<br>CRC validated<br>TCP transport</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node highlighted">
+        <span class="arch-node-icon">🔀</span>
+        <div class="arch-node-name">IoT Gateway</div>
+        <div class="arch-node-tech">Python<br>Multi-threaded TCP<br>MQTT + wolfSSL</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">🗄️</span>
+        <div class="arch-node-name">PostgreSQL</div>
+        <div class="arch-node-tech">Time-series schema<br>Redis cache<br>AWS RDS</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">⚙️</span>
+        <div class="arch-node-name">Spring Boot API</div>
+        <div class="arch-node-tech">Java / JWT<br>WebSocket<br>JPA/Hibernate</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">📊</span>
+        <div class="arch-node-name">React Dashboard</div>
+        <div class="arch-node-tech">Live charts<br>Zone heat maps<br>Alarm panel</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-node">
+        <span class="arch-node-icon">☁️</span>
+        <div class="arch-node-name">AWS</div>
+        <div class="arch-node-tech">VPC · EC2 · ALB<br>ASG · S3<br>CloudWatch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 1 -->
+  <div class="section-label">Layer 1</div>
+  <h2>Embedded <span>firmware</span></h2>
+
+  <div class="layer">
+    <div class="layer-header" onclick="toggleLayer('l1')">
+      <div class="layer-num">01</div>
+      <div>
+        <div class="layer-title">Embedded C — Sensor Firmware & PID Controllers</div>
+        <div class="layer-subtitle">ARM Cortex-M4 · FreeRTOS · ESP32 · CAN/SPI/I2C/UART · DMA</div>
+      </div>
+      <div class="layer-toggle" id="l1-toggle">▼</div>
+    </div>
+    <div class="layer-body open" id="l1-body">
+      <div class="layer-grid">
+        <div>
+          <div class="detail-block">
+            <h4>What it does</h4>
+            <p>Multi-node embedded firmware simulating a real smart building — temperature sensors per zone, PID-controlled HVAC actuators, and power metering units. Each node runs concurrently using FreeRTOS task scheduling, sending structured binary packets over TCP to the Python gateway.</p>
+          </div>
+          <div class="detail-block">
+            <h4>FreeRTOS task architecture</h4>
+            <ul>
+              <li><strong>Sensor task (priority 3):</strong> DMA-driven ADC sampling at 1kHz — 40% CPU load reduction vs polling</li>
+              <li><strong>PID task (priority 4):</strong> Runs every 10ms, reads sensor buffer, computes control output</li>
+              <li><strong>Comms task (priority 2):</strong> Packs struct, sends TCP packet, handles retries</li>
+              <li><strong>Watchdog task (priority 1):</strong> Kicks IWDG every 1s — system-level safety net</li>
+              <li>Semaphores between sensor and PID tasks; message queues for comms handoff</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>Hardware abstraction layer</h4>
+            <ul>
+              <li>HAL interface allows swapping between simulated and real ESP32/DHT22 hardware</li>
+              <li>Runtime flag: <code style="color:var(--cyan)">--hardware</code> activates physical sensor reads</li>
+              <li>Same firmware binary runs on both — no recompilation needed</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="detail-block">
+            <h4>PID thermal control</h4>
+            <ul>
+              <li>Ziegler–Nichols tuning: identified Ku and Tu from sustained oscillation on oscilloscope</li>
+              <li>Anti-windup: conditional integration stops accumulation during actuator saturation</li>
+              <li><strong>20% improvement</strong> in temperature regulation accuracy vs manual tuning</li>
+              <li><strong>15% reduction</strong> in thermal overshoot</li>
+            </ul>
+          </div>
+          <div class="code-block">
+            <div class="code-header">
+              <span class="code-lang">C</span>
+              <span class="code-title">PID compute with anti-windup</span>
+            </div>
+            <pre><span class="type">float</span> <span class="fn">pid_compute</span>(PID_t *pid, <span class="type">float</span> sp, <span class="type">float</span> pv) {
+  <span class="type">float</span> error = sp - pv;
+  <span class="type">float</span> deriv = (error - pid->prev_err) / pid->dt;
+
+  <span class="cm">// Anti-windup: only integrate if not saturated</span>
+  <span class="kw">if</span> (!pid->saturated)
+    pid->integral += error * pid->dt;
+
+  <span class="cm">// Clamp integral term</span>
+  pid->integral = clamp(pid->integral,
+                        -pid->int_max, pid->int_max);
+
+  pid->prev_err = error;
+  <span class="kw">return</span> pid->Kp * error
+       + pid->Ki * pid->integral
+       + pid->Kd * deriv;
+}</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision-box">
+        <div class="decision-title">⚡ Design Decision: Why FreeRTOS over bare-metal?</div>
+        <p>The system has 4 concurrent tasks with different timing requirements: sensor polling at 100ms, PID at 10ms, TCP comms at variable latency, and analytics every 60s. <strong>FreeRTOS priority scheduling guarantees the PID and sensor tasks always meet their deadlines</strong> regardless of TCP load — something a bare-metal polling loop cannot cleanly guarantee. The overhead is ~12µs per context switch on Cortex-M4 — acceptable at these frequencies.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 2 -->
+  <div class="section-label">Layer 2</div>
+  <h2>The <span>binary protocol</span></h2>
+
+  <div class="layer">
+    <div class="layer-header" onclick="toggleLayer('l2')">
+      <div class="layer-num">02</div>
+      <div>
+        <div class="layer-title">Custom 18-Byte Binary Messaging Protocol</div>
+        <div class="layer-subtitle">Struct-packed · CRC-validated · Little-endian · TCP transport</div>
+      </div>
+      <div class="layer-toggle" id="l2-toggle">▼</div>
+    </div>
+    <div class="layer-body open" id="l2-body">
+      <div class="detail-block">
+        <h4>Packet layout</h4>
+        <div class="protocol-diagram">
+          <div class="byte-row">
+            <div class="byte"><span class="byte-num">B0</span><span class="byte-name">device_id</span></div>
+            <div class="byte"><span class="byte-num">B1</span><span class="byte-name">sensor_type</span></div>
+            <div class="byte field-xl"><span class="byte-num">B2–B5</span><span class="byte-name">timestamp_ms (uint32)</span></div>
+            <div class="byte field-xl"><span class="byte-num">B6–B9</span><span class="byte-name">value (float)</span></div>
+            <div class="byte field-xl"><span class="byte-num">B10–B13</span><span class="byte-name">setpoint (float)</span></div>
+            <div class="byte field-long"><span class="byte-num">B14–B15</span><span class="byte-name">flags (uint16)</span></div>
+            <div class="byte field-long field-checksum"><span class="byte-num">B16–B17</span><span class="byte-name">CRC16 ✓</span></div>
+          </div>
+          <div style="font-size:0.72rem;color:var(--text3)">Total: 18 bytes · __attribute__((packed)) · no padding</div>
+        </div>
+      </div>
+
+      <div class="decision-box">
+        <div class="decision-title">⚡ Design Decision: Why binary over JSON?</div>
+        <p>
+          <strong>Bandwidth:</strong> 18 bytes vs ~80 bytes for equivalent JSON — a 4.4× reduction. At 16 sensors polling at 10Hz, that is 16 × 10 × 80 = 12.8KB/s for JSON vs 2.88KB/s for binary. On UART at 115200 baud, JSON consumes 88% of bandwidth; binary consumes 20%.<br><br>
+          <strong>Parsing determinism:</strong> A binary struct cast is O(1) and takes the same time every call. JSON parsing is O(n) string scanning — non-deterministic in a real-time control loop.<br><br>
+          <strong>Memory:</strong> No dynamic string allocation on the microcontroller. The entire packet lives in a statically-declared struct — essential with 64KB RAM.
+        </p>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">C</span>
+          <span class="code-title">Struct definition + serialization</span>
+        </div>
+        <pre><span class="kw">__attribute__</span>((packed))
+<span class="kw">typedef struct</span> {
+  <span class="type">uint8_t</span>  device_id;     <span class="cm">// 1 byte</span>
+  <span class="type">uint8_t</span>  sensor_type;   <span class="cm">// 1 byte</span>
+  <span class="type">uint32_t</span> timestamp_ms;  <span class="cm">// 4 bytes</span>
+  <span class="type">float</span>    value;         <span class="cm">// 4 bytes — sensor reading</span>
+  <span class="type">float</span>    setpoint;      <span class="cm">// 4 bytes — PID target</span>
+  <span class="type">uint16_t</span> flags;         <span class="cm">// 2 bytes — status bits</span>
+  <span class="type">uint16_t</span> checksum;      <span class="cm">// 2 bytes — CRC16</span>
+} SensorPacket_t;           <span class="cm">// Total: 18 bytes</span>
+
+<span class="cm">// Send: cast struct directly to byte array — zero-copy</span>
+SensorPacket_t pkt = { .device_id = <span class="num">1</span>, .value = temp };
+pkt.checksum = <span class="fn">crc16</span>((<span class="type">uint8_t</span>*)&pkt, <span class="kw">sizeof</span>(pkt) - <span class="num">2</span>);
+<span class="fn">tcp_send</span>(sock, (<span class="type">uint8_t</span>*)&pkt, <span class="kw">sizeof</span>(pkt));</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">Python</span>
+          <span class="code-title">Gateway parser — O(1) struct unpack</span>
+        </div>
+        <pre><span class="kw">import</span> struct
+
+PACKET_FMT = <span class="str">'<BBIffHH'</span>   <span class="cm"># little-endian, 18 bytes</span>
+PACKET_SIZE = struct.calcsize(PACKET_FMT)  <span class="cm"># = 18</span>
+
+<span class="kw">def</span> <span class="fn">parse_packet</span>(raw: bytes) -> dict:
+    fields = struct.unpack(PACKET_FMT, raw)
+    device_id, sensor_type, ts, val, sp, flags, crc = fields
+
+    <span class="cm"># Validate CRC before processing</span>
+    expected = <span class="fn">crc16</span>(raw[:<span class="num">-2</span>])
+    <span class="kw">if</span> crc != expected:
+        <span class="kw">raise</span> ValueError(<span class="str">f"CRC mismatch: {crc} != {expected}"</span>)
+
+    <span class="kw">return</span> {<span class="str">"device_id"</span>: device_id, <span class="str">"value"</span>: val,
+            <span class="str">"timestamp_ms"</span>: ts, <span class="str">"setpoint"</span>: sp}</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 3 -->
+  <div class="section-label">Layer 3</div>
+  <h2>Gateway <span>& backend</span></h2>
+
+  <div class="layer">
+    <div class="layer-header" onclick="toggleLayer('l3')">
+      <div class="layer-num">03</div>
+      <div>
+        <div class="layer-title">Python Gateway · Spring Boot API · PostgreSQL · Redis</div>
+        <div class="layer-subtitle">Multi-threaded TCP · MQTT · wolfSSL · JWT · WebSocket · JPA/Hibernate</div>
+      </div>
+      <div class="layer-toggle" id="l3-toggle">▼</div>
+    </div>
+    <div class="layer-body open" id="l3-body">
+      <div class="layer-grid">
+        <div>
+          <div class="detail-block">
+            <h4>Python IoT gateway</h4>
+            <ul>
+              <li>Multi-threaded TCP server: one thread per sensor node connection</li>
+              <li>Circular buffer (1000 entries) for lock-free producer-consumer ingestion</li>
+              <li>Analytics engine: mean/stddev/min/max per zone every 60s</li>
+              <li>MQTT pub/sub integration alongside TCP for device management</li>
+              <li>wolfSSL AES-TLS on all sensor links — encrypted at transport layer</li>
+              <li>Persistent writes to PostgreSQL via <code style="color:var(--cyan)">db_writer.py</code> with connection pooling</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>PostgreSQL time-series schema</h4>
+            <ul>
+              <li><code style="color:var(--cyan)">sensor_readings</code> — raw append-only time-series</li>
+              <li><code style="color:var(--cyan)">zones</code> / <code style="color:var(--cyan)">devices</code> — building topology</li>
+              <li><code style="color:var(--cyan)">hvac_events</code> — actuator state changes</li>
+              <li><code style="color:var(--cyan)">analytics_summary</code> — pre-computed aggregates for fast dashboard queries</li>
+              <li>Composite index on (zone_id, recorded_at DESC) for sub-100ms range queries</li>
+              <li>Redis cache-aside for analytics layer — 5-min TTL, invalidated on new readings</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="detail-block">
+            <h4>Spring Boot REST API</h4>
+            <ul>
+              <li>Layered MVC: Controller → Service → Repository — no business logic in controllers</li>
+              <li>JWT auth middleware on all endpoints — stateless, 15-min expiry</li>
+              <li>WebSocket STOMP server — real-time push to React dashboard on every new sensor reading</li>
+              <li>JPA/Hibernate ORM with optimized query design — DTO projection prevents over-fetching</li>
+              <li>Global @ControllerAdvice exception handler — maps all errors to structured JSON responses</li>
+            </ul>
+          </div>
+
+          <div class="debug-box">
+            <div class="debug-title">🐛 Real Bug: The 0.0.0.0 vs 127.0.0.1 Fix</div>
+            <p><strong>Symptom:</strong> After AWS deployment with Docker Compose, the dashboard showed no live data. All containers healthy. No errors in logs.<br><br>
+            <strong>Root cause:</strong> The Python gateway was bound to <code style="color:var(--green)">127.0.0.1</code>. In Docker's bridge network, each container has its own loopback — sensor containers could not reach the gateway's loopback interface.<br><br>
+            <strong>Fix:</strong> Changed bind address to <code style="color:var(--green)">0.0.0.0</code> to accept on all interfaces including the Docker bridge network IP. Data flowed immediately.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 4 -->
+  <div class="section-label">Layer 4</div>
+  <h2>AWS <span>infrastructure</span></h2>
+
+  <div class="layer">
+    <div class="layer-header" onclick="toggleLayer('l4')">
+      <div class="layer-num">04</div>
+      <div>
+        <div class="layer-title">AWS Infrastructure · Terraform IaC · GitHub Actions CI/CD</div>
+        <div class="layer-subtitle">VPC · EC2 · RDS Multi-AZ · ALB · ASG · S3 · CloudWatch · Packer</div>
+      </div>
+      <div class="layer-toggle" id="l4-toggle">▼</div>
+    </div>
+    <div class="layer-body open" id="l4-body">
+      <div class="layer-grid">
+        <div>
+          <div class="detail-block">
+            <h4>Terraform module structure</h4>
+            <ul>
+              <li><code style="color:var(--cyan)">modules/vpc</code> — VPC, public/private subnets, IGW, NAT, route tables</li>
+              <li><code style="color:var(--cyan)">modules/compute</code> — EC2 Launch Template, ASG, ALB, target groups</li>
+              <li><code style="color:var(--cyan)">modules/database</code> — RDS PostgreSQL multi-AZ, subnet group, parameter group</li>
+              <li><code style="color:var(--cyan)">modules/monitoring</code> — CloudWatch alarms, dashboards, SNS topics</li>
+              <li>Remote state: S3 bucket + DynamoDB locking — no concurrent apply conflicts</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <h4>VPC security architecture</h4>
+            <ul>
+              <li><strong>ALB SG:</strong> accepts 80/443 from internet only</li>
+              <li><strong>EC2 SG:</strong> accepts 8080 from ALB SG only — never from internet</li>
+              <li><strong>RDS SG:</strong> accepts 5432 from EC2 SG only — completely private</li>
+              <li>IAM instance role: read S3 (logs), write CloudWatch metrics, read SSM Parameter Store (DB password) — nothing else</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="detail-block">
+            <h4>CI/CD pipeline — 7 stages</h4>
+            <ul>
+              <li><strong>Stage 1 Build:</strong> Maven (Java), pip + syntax (Python), gcc (C)</li>
+              <li><strong>Stage 2 Test:</strong> JUnit + Mockito, Pytest with 80% coverage threshold</li>
+              <li><strong>Stage 3 Analysis:</strong> SpotBugs (Java), pylint (Python), cppcheck (C)</li>
+              <li><strong>Stage 4 Docker:</strong> Build images, push to Amazon ECR</li>
+              <li><strong>Stage 5 AMI:</strong> Packer bakes new AMI with app pre-installed — cold start in 60s</li>
+              <li><strong>Stage 6 Deploy:</strong> Terraform updates Launch Template; ASG rolling refresh — zero downtime</li>
+              <li><strong>Stage 7 Smoke Test:</strong> Hit /actuator/health, verify WebSocket, confirm data flow</li>
+            </ul>
+          </div>
+          <div class="decision-box">
+            <div class="decision-title">⚡ Baked AMI vs user data scripts</div>
+            <p>User data runs at every launch — 5 minutes before healthy. <strong>Packer pre-installs everything:</strong> new instances launch and are ready in 60 seconds. No runtime dependency on external package repos. The 90% ops effort reduction comes from eliminating 25–30 minutes of manual SSH deployment work per release.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="code-block">
+        <div class="code-header">
+          <span class="code-lang">HCL</span>
+          <span class="code-title">Terraform ASG with CPU-based scaling</span>
+        </div>
+        <pre><span class="kw">resource</span> <span class="str">"aws_autoscaling_policy"</span> <span class="str">"cpu_tracking"</span> {
+  name                   = <span class="str">"ems-cpu-tracking"</span>
+  autoscaling_group_name = aws_autoscaling_group.ems.name
+  policy_type            = <span class="str">"TargetTrackingScaling"</span>
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = <span class="str">"ASGAverageCPUUtilization"</span>
+    }
+    target_value = <span class="num">60.0</span>  <span class="cm"># scale up above 60% CPU</span>
+  }
+}
+
+<span class="kw">resource</span> <span class="str">"aws_autoscaling_group"</span> <span class="str">"ems"</span> {
+  min_size         = <span class="num">2</span>   <span class="cm"># always 2 AZs for HA</span>
+  max_size         = <span class="num">10</span>
+  desired_capacity = <span class="num">2</span>
+  health_check_type = <span class="str">"ELB"</span>
+}</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAGS + CTA -->
+  <div style="margin-top:60px">
+    <div class="section-label">Technologies</div>
+    <div class="tag-row">
+      <span class="tag">C (Embedded)</span><span class="tag">Python</span><span class="tag">Java</span>
+      <span class="tag">FreeRTOS</span><span class="tag">ARM Cortex-M4</span><span class="tag">ESP32</span>
+      <span class="tag">CAN / SPI / I2C / UART</span><span class="tag">MQTT</span>
+      <span class="tag">wolfSSL / TLS</span><span class="tag">Spring Boot</span>
+      <span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">JWT</span><span class="tag">WebSocket</span>
+      <span class="tag">AWS EC2</span><span class="tag">RDS</span><span class="tag">S3</span>
+      <span class="tag">VPC</span><span class="tag">ALB</span><span class="tag">ASG</span><span class="tag">CloudWatch</span>
+      <span class="tag">Terraform</span><span class="tag">Packer</span><span class="tag">Docker</span><span class="tag">GitHub Actions</span>
+      <span class="tag neutral">DMA</span><span class="tag neutral">PID Control</span>
+      <span class="tag neutral">Ziegler–Nichols</span><span class="tag neutral">Time-Series Schema</span>
+      <span class="tag neutral">IaC</span><span class="tag neutral">Zero-downtime Deploy</span>
+    </div>
+
+    <div class="cta-row">
+      <a href="https://github.com/shashanksh1109/embedded-energy-monitoring-system" target="_blank" class="btn btn-primary">View on GitHub →</a>
+      <a href="index.html#projects" class="btn btn-ghost">← Back to Portfolio</a>
+      <a href="mailto:sh.s@northeastern.edu" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 <span>Shashank Sakrappa Hakari</span> · Distributed Energy Management System Case Study</p>
+</footer>
+
+<script>
+function toggleLayer(id) {
+  const body = document.getElementById(id + '-body');
+  const toggle = document.getElementById(id + '-toggle');
+  const isOpen = body.classList.contains('open');
+  body.style.display = isOpen ? 'none' : 'block';
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+  toggle.textContent = isOpen ? '▼' : '▲';
+}
+
+// Init: all open, set toggle state
+document.querySelectorAll('.layer-toggle').forEach(t => {
+  t.classList.add('open');
+  t.textContent = '▲';
+});
+</script>
+</body>
+</html>
