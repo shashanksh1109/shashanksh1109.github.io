@@ -879,20 +879,21 @@ footer span{color:var(--cyan)}
           <h3>Embedded / RTOS</h3>
         </div>
         <div class="skill-tags">
-          <span class="stag">ARM Cortex-M4</span><span class="stag">ESP32</span><span class="stag">PIC16F877A</span>
-          <span class="stag">ATmega2560</span><span class="stag">FreeRTOS</span><span class="stag">PID Control</span>
-          <span class="stag">PWM</span><span class="stag">DMA</span><span class="stag">Interrupt Handling</span>
+          <span class="stag">ARM Cortex-M4/M3</span><span class="stag">STM32</span><span class="stag">Bare-Metal C</span>
+          <span class="stag">Linker Scripts (.text/.data/.bss)</span><span class="stag">Bootloaders</span>
+          <span class="stag">ESP32</span><span class="stag">PIC16F877A</span><span class="stag">FreeRTOS</span>
+          <span class="stag">PID Control</span><span class="stag">PWM</span><span class="stag">DMA</span><span class="stag">ISR / Interrupt Handling</span>
         </div>
       </div>
       <div class="skill-block">
         <div class="skill-block-header">
           <div class="skill-icon">📡</div>
-          <h3>Protocols</h3>
+          <h3>Protocols & Interfaces</h3>
         </div>
         <div class="skill-tags">
-          <span class="stag">CAN Bus</span><span class="stag">SPI</span><span class="stag">I2C</span>
-          <span class="stag">UART</span><span class="stag">MQTT</span><span class="stag">CoAP</span>
-          <span class="stag">TCP/IP</span><span class="stag">TLS/SSL</span><span class="stag">BLE</span><span class="stag">Modbus</span>
+          <span class="stag">CAN Bus (2.0A / Ext 2.0B)</span><span class="stag">SPI / Daisy-Chaining</span>
+          <span class="stag">I2C</span><span class="stag">UART / USART</span><span class="stag">MQTT</span>
+          <span class="stag">CoAP</span><span class="stag">TCP/IP</span><span class="stag">TLS/SSL</span><span class="stag">BLE</span><span class="stag">Modbus</span>
         </div>
       </div>
       <div class="skill-block">
@@ -921,12 +922,12 @@ footer span{color:var(--cyan)}
       <div class="skill-block">
         <div class="skill-block-header">
           <div class="skill-icon">🐧</div>
-          <h3>Systems</h3>
+          <h3>Systems & Architecture</h3>
         </div>
         <div class="skill-tags">
-          <span class="stag">Embedded Linux</span><span class="stag">POSIX</span><span class="stag">IPC</span>
-          <span class="stag">Threads</span><span class="stag">Signals</span><span class="stag">Socket Programming</span>
-          <span class="stag">Memory Management</span><span class="stag">GDB</span>
+          <span class="stag">Embedded Linux</span><span class="stag">Core Registers</span><span class="stag">Memory Mapping</span>
+          <span class="stag">POSIX</span><span class="stag">IPC</span><span class="stag">Threads</span><span class="stag">Signals</span>
+          <span class="stag">Socket Programming</span><span class="stag">Memory Management</span><span class="stag">GDB / Valgrind</span>
         </div>
       </div>
       <div class="skill-block">
@@ -935,8 +936,8 @@ footer span{color:var(--cyan)}
           <h3>Sensors & Hardware</h3>
         </div>
         <div class="skill-tags">
-          <span class="stag">PT100</span><span class="stag">DHT11/22</span><span class="stag">MAX31865</span>
-          <span class="stag">LM35</span><span class="stag">MQ2</span><span class="stag">IR</span>
+          <span class="stag">PT100 (MAX31865)</span><span class="stag">K-Type Thermocouple</span><span class="stag">DHT11/22</span>
+          <span class="stag">LM35</span><span class="stag">MQ2</span><span class="stag">IR</span><span class="stag">GPIO Configuration</span>
           <span class="stag">PCB Design (easyEDA)</span><span class="stag">Oscilloscope</span><span class="stag">Logic Analyzer</span>
         </div>
       </div>
@@ -961,6 +962,38 @@ footer span{color:var(--cyan)}
     <div class="section-label">Projects</div>
     <h2>What I've <span>built</span></h2>
     <div class="projects-list">
+
+      <!-- REAL-TIME HARDWARE SENSOR PLATFORM -->
+      <div class="project-card featured">
+        <div class="project-top">
+          <div class="project-badge featured-badge">Embedded Systems · Hardware</div>
+          <div class="project-date">2026</div>
+        </div>
+        <div class="project-body">
+          <h3>Dual-Sensor Real-Time Thermal Monitoring Platform</h3>
+          <div class="project-arch">
+            PT100 (MAX31865) & K-Type Thermocouple <span>→</span> SPI Daisy-Chain <span>→</span> Bare-Metal STM32 C Firmware <span>→</span> OLED Real-Time Display
+          </div>
+          <div class="project-metrics">
+            <div class="metric"><span class="metric-val">16-bit</span><div class="metric-lbl">ADC Resolution</div></div>
+            <div class="metric"><span class="metric-val">&lt;10ms</span><div class="metric-lbl">Refresh Latency</div></div>
+            <div class="metric"><span class="metric-val">Dual</span><div class="metric-lbl">Sensor Pipeline</div></div>
+            <div class="metric"><span class="metric-val">SPI</span><div class="metric-lbl">Daisy-Chain Interface</div></div>
+          </div>
+          <ul class="project-bullets">
+            <li><strong>Bare-Metal Driver Architecture:</strong> Developed low-level SPI drivers for MAX31865 RTD digital converters and K-type thermocouple ICs on STM32 hardware using direct register access.</li>
+            <li><strong>Multi-Sensor Acquisition:</strong> Engineered daisy-chained SPI communication with precise Chip Select (CS) line management to query continuous temperature feeds from dual hardware sensors concurrently.</li>
+            <li><strong>Memory & Execution Optimization:</strong> Structured custom linker script sections (`.text`, `.data`, `.bss`) to guarantee deterministic RAM usage and optimized vector table placement during microcontroller boot.</li>
+            <li><strong>Display & Telemetry Engine:</strong> Formatted real-time temperature metrics to display continuously on an integrated screen with sub-10ms acquisition latency.</li>
+          </ul>
+          <div class="project-tags">
+            <span class="ptag">Embedded C</span><span class="ptag">STM32</span><span class="ptag">ARM Cortex-M</span>
+            <span class="ptag">SPI Daisy-Chain</span><span class="ptag">PT100</span><span class="ptag">K-Type Thermocouple</span>
+            <span class="ptag">Linker Scripts</span><span class="ptag">Bare-Metal</span>
+          </div>
+          <a href="https://github.com/shashanksh1109" class="project-link" target="_blank">View Repository →</a>
+        </div>
+      </div>
 
       <!-- EMS PROJECT -->
       <div class="project-card featured">
@@ -993,6 +1026,28 @@ footer span{color:var(--cyan)}
           </div>
           <a href="ems.html" class="project-link">View Full Case Study →</a>
           <a href="https://github.com/shashanksh1109/embedded-energy-monitoring-system" class="project-link" target="_blank" style="margin-left:16px">GitHub →</a>
+        </div>
+      </div>
+
+      <!-- CAN BUS NETWORK DRIVER -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-badge">Automotive Protocols · Bare-Metal</div>
+          <div class="project-date">2026</div>
+        </div>
+        <div class="project-body">
+          <h3>Low-Level CAN Bus Communication Controller Driver</h3>
+          <div class="project-desc">Custom C driver supporting CAN 2.0A (Standard 11-bit ID) and Extended CAN 2.0B (29-bit ID) protocol frames with hardware acceptance filtering for microcontrollers.</div>
+          <ul class="project-bullets">
+            <li>Engineered frame encoding/decoding routines handling bit stuffing, DLC validation, CRC checks, and ACK verification at register-level interfaces.</li>
+            <li>Implemented multi-mailbox interrupt service routines (ISRs) for fault-tolerant message handling under high bus loads.</li>
+            <li>Configured custom baud-rate bit timing calculation tables based on microcontroller clock presets and propagation delays.</li>
+          </ul>
+          <div class="project-tags">
+            <span class="ptag">Embedded C</span><span class="ptag">CAN 2.0A / 2.0B</span><span class="ptag">Bit Timing</span>
+            <span class="ptag">ISR</span><span class="ptag">Acceptance Filters</span><span class="ptag">ARM Cortex-M</span>
+          </div>
+          <a href="https://github.com/shashanksh1109" class="project-link" target="_blank">View Repository →</a>
         </div>
       </div>
 
@@ -1076,18 +1131,16 @@ footer span{color:var(--cyan)}
           <h3>Systems & Embedded Training Projects</h3>
           <div class="project-desc">Production-quality systems programming projects covering embedded hardware, OS-level C, cryptography, and data structures. Each project is independently deployable and thoroughly tested.</div>
           <ul class="project-bullets">
-            <li><strong>Car Black Box (PIC16F877A):</strong> Real-time data logger over I2C/UART to external EEPROM — gear changes, braking, collision, speed with timestamps. 100% portable.</li>
-            <li><strong>Linux Mini Shell (C):</strong> Full shell with fork/exec, IPC, piping, I/O redirection, signal handling (SIGINT, SIGCHLD), and built-in commands.</li>
-            <li><strong>LSB Image Steganography (C/C++):</strong> Encodes secret messages into BMP images via bit manipulation — 20% enhanced security, zero visible image degradation.</li>
-            <li><strong>Inverted Search Index (C):</strong> Hashing + linked lists achieving 90–95% collision-free lookups — production-grade text indexing engine.</li>
-            <li><strong>wolfSSL Satellite Encryption:</strong> AES key-exchange encryption for secure real-time streaming on resource-constrained embedded targets.</li>
+            <li><strong>Car Black Box (PIC16F877A / C):</strong> Real-time event logger capturing vehicle state during collisions into EEPROM via I2C; interrupt-driven system with digital dashboard and password authentication.</li>
+            <li><strong>MP3 Player (Linux / C):</strong> Console audio engine using POSIX threads, IPC signals, and ALSA library for smooth playback control and track navigation.</li>
+            <li><strong>Image Steganography (C):</strong> Hides encrypted payload bytes inside BMP image header/pixel regions using bitwise LSB substitution with integrity verification.</li>
+            <li><strong>Inverted Index Search Engine (C):</strong> High-performance text indexing pipeline built with linked lists and hash tables for instant file keyword search and frequency analysis.</li>
           </ul>
           <div class="project-tags">
-            <span class="ptag">C</span><span class="ptag">C++</span><span class="ptag">PIC16F877A</span>
-            <span class="ptag">I2C</span><span class="ptag">UART</span><span class="ptag">EEPROM</span>
-            <span class="ptag">wolfSSL</span><span class="ptag">Linux IPC</span>
+            <span class="ptag">Embedded C</span><span class="ptag">PIC16F877A</span><span class="ptag">EEPROM</span>
+            <span class="ptag">I2C</span><span class="ptag">POSIX Threads</span><span class="ptag">Data Structures</span>
           </div>
-          <a href="https://github.com/shashanksh1109" class="project-link" target="_blank">View on GitHub →</a>
+          <a href="https://github.com/shashanksh1109" class="project-link" target="_blank">View Repository →</a>
         </div>
       </div>
 
@@ -1104,61 +1157,40 @@ footer span{color:var(--cyan)}
 
       <div class="exp-item">
         <div class="exp-left">
-          <div class="exp-period">Aug 2023<br>Jun 2024</div>
+          <div class="exp-period">Jun 2025 — Present</div>
         </div>
         <div class="exp-right">
-          <div class="exp-role">Embedded Software Engineer</div>
-          <div class="exp-company">Ducom Aerospace</div>
-          <div class="exp-location">Bengaluru, India</div>
-          <ul class="exp-bullets">
-            <li>Developed flight-critical C firmware for <strong>PID-controlled thermal management</strong> on ARM Cortex-M4; Ziegler–Nichols tuning achieving <strong>20% improvement</strong> in temperature accuracy and <strong>15% reduction</strong> in overshoot.</li>
-            <li>Engineered <strong>closed-loop servo motor control</strong> with custom transfer function on Teknik controller — <strong>35% efficiency gain</strong> with sub-millisecond response for flight actuator systems.</li>
-            <li>Architected <strong>CAN, SPI, I2C, UART</strong> protocol stack for real-time avionics data exchange — <strong>30% reliability improvement</strong>; TCP socket programming for host telemetry synchronization (+<strong>10% throughput</strong>).</li>
-            <li>Implemented <strong>FreeRTOS</strong> task scheduling with priority-based preemption, semaphores, and message queues for concurrent sensor acquisition and actuator control.</li>
-            <li>DMA-driven sensor acquisition at <strong>1kHz</strong> — <strong>40% CPU load reduction</strong>; owned full firmware lifecycle from requirements through production across <strong>5+ concurrent projects</strong>.</li>
-            <li>Designed <strong>multi-layer PCBs</strong> in easyEDA for avionics sensor boards — signal integrity, EMI shielding, thermal dissipation; 17A power trace design using IPC-2221.</li>
-          </ul>
-          <div class="exp-tags">
-            <span class="stag">C</span><span class="stag">ARM Cortex-M4</span><span class="stag">FreeRTOS</span>
-            <span class="stag">CAN/SPI/I2C/UART</span><span class="stag">PID Control</span><span class="stag">DMA</span><span class="stag">easyEDA</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-left">
-          <div class="exp-period">Jan 2026<br>Apr 2026</div>
-        </div>
-        <div class="exp-right">
-          <div class="exp-role">Backend Software Engineer (Co-op)</div>
-          <div class="exp-company">Street Care</div>
+          <div class="exp-role">Software Engineer Intern</div>
+          <div class="exp-company">Street Care (Soles4Souls)</div>
           <div class="exp-location">Boston, MA</div>
           <ul class="exp-bullets">
-            <li>Built scalable <strong>Python RESTful APIs</strong> for a real-time volunteer coordination platform; improved data processing throughput by <strong>25%</strong> through PostgreSQL query optimization and Redis caching.</li>
-            <li>Designed and maintained <strong>CI/CD pipelines</strong> with GitHub Actions for automated testing, linting, and deployment; collaborated in Agile sprints delivering bi-weekly releases with zero-downtime deployments.</li>
+            <li>Architected scalable Python backend microservices and automated deployment workflows.</li>
+            <li>Designed CI/CD pipelines via GitHub Actions to streamline build testing and cloud deployment cycles.</li>
+            <li>Collaborated with cross-functional teams to integrate RESTful API endpoints and maintain system reliability.</li>
           </ul>
           <div class="exp-tags">
-            <span class="stag">Python</span><span class="stag">PostgreSQL</span><span class="stag">Redis</span>
-            <span class="stag">GitHub Actions</span><span class="stag">REST APIs</span><span class="stag">Agile</span>
+            <span class="stag">Python</span><span class="stag">CI/CD</span><span class="stag">GitHub Actions</span><span class="stag">REST APIs</span>
           </div>
         </div>
       </div>
 
       <div class="exp-item">
         <div class="exp-left">
-          <div class="exp-period">Aug 2022<br>May 2023</div>
+          <div class="exp-period">Sep 2022 — Jun 2024</div>
         </div>
         <div class="exp-right">
-          <div class="exp-role">Embedded Software Trainee</div>
-          <div class="exp-company">Emertxe Information Technologies</div>
-          <div class="exp-location">Bengaluru, India</div>
+          <div class="exp-role">Embedded Firmware Engineer</div>
+          <div class="exp-company">Ducom Instruments / Aerospace</div>
+          <div class="exp-location">Bangalore, India</div>
           <ul class="exp-bullets">
-            <li>Built <strong>Car Black Box</strong> (PIC16F877A, I2C, UART, EEPROM), <strong>Linux Mini Shell</strong> (fork/exec, IPC, signals), and <strong>LSB Steganography</strong> (20% security improvement via bit manipulation).</li>
-            <li>Developed <strong>Inverted Search Index</strong> in C (90–95% collision-free) and <strong>wolfSSL AES</strong> secure streaming module for resource-constrained embedded targets.</li>
+            <li>Developed bare-metal C/C++ firmware for ARM Cortex-M microcontrollers operating in flight-critical avionics environments.</li>
+            <li>Engineered hardware communication drivers for CAN, SPI, I2C, and UART interfaces ensuring deterministic payload transmission.</li>
+            <li>Implemented FreeRTOS real-time task scheduling, semaphore synchronization, and closed-loop PID control algorithms.</li>
+            <li>Designed multi-layer PCBs and validated pin mappings, trace routing, and signal integrity using oscilloscopes and logic analyzers.</li>
           </ul>
           <div class="exp-tags">
-            <span class="stag">C</span><span class="stag">C++</span><span class="stag">Embedded Linux</span>
-            <span class="stag">wolfSSL</span><span class="stag">PIC16F877A</span>
+            <span class="stag">Embedded C</span><span class="stag">ARM Cortex-M4</span><span class="stag">FreeRTOS</span>
+            <span class="stag">CAN Bus</span><span class="stag">SPI/I2C/UART</span><span class="stag">PCB Design</span>
           </div>
         </div>
       </div>
@@ -1171,100 +1203,53 @@ footer span{color:var(--cyan)}
 <section id="contact">
   <div class="section-inner">
     <div class="section-label">Contact</div>
-    <h2>Let's <span>connect</span></h2>
+    <h2>Get in <span>touch</span></h2>
     <div class="contact-grid">
       <div class="contact-info">
-        <p>I'm actively looking for full-time opportunities in embedded systems, IoT software, or backend + cloud engineering starting Summer/Fall 2026. H1B sponsorship required.</p>
-        <p>Whether you have a role, a project, or just want to talk embedded systems — reach out.</p>
+        <p>I am currently looking for full-time embedded systems, firmware, or system software engineering roles. Feel free to reach out via email or connect on LinkedIn!</p>
         <div class="contact-links-list">
-          <a href="mailto:sh.s@northeastern.edu" class="contact-link">
-            <div class="contact-link-icon">📧</div>
-            <span>sh.s@northeastern.edu</span>
+          <a href="mailto:hakari.s@northeastern.edu" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <div>hakari.s@northeastern.edu</div>
           </a>
           <a href="https://www.linkedin.com/in/shashank-s-h-651970349/" target="_blank" class="contact-link">
             <div class="contact-link-icon">💼</div>
-            <span>linkedin.com/in/shashank-s-h</span>
+            <div>LinkedIn Profile</div>
           </a>
           <a href="https://github.com/shashanksh1109" target="_blank" class="contact-link">
             <div class="contact-link-icon">💻</div>
-            <span>github.com/shashanksh1109</span>
+            <div>GitHub Repositories</div>
           </a>
         </div>
       </div>
+
       <div class="contact-form">
-        <h3>Send a message</h3>
-        <form id="contactForm">
+        <h3>Send Message</h3>
+        <form id="portfolio-contact-form">
           <div class="form-group">
-            <label>Name *</label>
-            <input type="text" name="name" required>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your Name">
           </div>
           <div class="form-group">
-            <label>Email *</label>
-            <input type="email" name="email" required>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
           </div>
           <div class="form-group">
-            <label>Company</label>
-            <input type="text" name="company">
-          </div>
-          <div class="form-group">
-            <label>Message *</label>
-            <textarea name="message" required></textarea>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Your message here..."></textarea>
           </div>
           <button type="submit" class="submit-btn">Send Message</button>
-          <div id="formMessage" class="form-message"></div>
+          <div class="form-message" id="form-message"></div>
         </form>
       </div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="container">
-    <p>© 2025 <span>Shashank Sakrappa Hakari</span> · Boston, MA · Built for GitHub Pages</p>
-  </div>
+  <p>© 2026 Shashank Sakrappa Hakari. Built with <span>HTML/CSS</span>.</p>
 </footer>
 
-<script>
-document.getElementById('contactForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = this.querySelector('.submit-btn');
-  const msg = document.getElementById('formMessage');
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
-  msg.style.display = 'none';
-  try {
-    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      method: 'POST',
-      body: new FormData(this),
-      headers: { 'Accept': 'application/json' }
-    });
-    if (res.ok) {
-      msg.className = 'form-message success';
-      msg.textContent = 'Message sent! I\'ll get back to you soon.';
-      this.reset();
-    } else throw new Error();
-  } catch {
-    msg.className = 'form-message error';
-    msg.textContent = 'Something went wrong — please email me directly at sh.s@northeastern.edu';
-  } finally {
-    msg.style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = 'Send Message';
-  }
-});
-
-// Smooth active nav
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 100) current = s.id;
-  });
-  navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
-  });
-});
-</script>
 </body>
 </html>
