@@ -963,38 +963,6 @@ footer span{color:var(--cyan)}
     <h2>What I've <span>built</span></h2>
     <div class="projects-list">
 
-      <!-- REAL-TIME HARDWARE SENSOR PLATFORM -->
-      <div class="project-card featured">
-        <div class="project-top">
-          <div class="project-badge featured-badge">Embedded Systems · Hardware</div>
-          <div class="project-date">2026</div>
-        </div>
-        <div class="project-body">
-          <h3>Dual-Sensor Real-Time Thermal Monitoring Platform</h3>
-          <div class="project-arch">
-            PT100 (MAX31865) & K-Type Thermocouple <span>→</span> SPI Daisy-Chain <span>→</span> Bare-Metal STM32 C Firmware <span>→</span> OLED Real-Time Display
-          </div>
-          <div class="project-metrics">
-            <div class="metric"><span class="metric-val">16-bit</span><div class="metric-lbl">ADC Resolution</div></div>
-            <div class="metric"><span class="metric-val">&lt;10ms</span><div class="metric-lbl">Refresh Latency</div></div>
-            <div class="metric"><span class="metric-val">Dual</span><div class="metric-lbl">Sensor Pipeline</div></div>
-            <div class="metric"><span class="metric-val">SPI</span><div class="metric-lbl">Daisy-Chain Interface</div></div>
-          </div>
-          <ul class="project-bullets">
-            <li><strong>Bare-Metal Driver Architecture:</strong> Developed low-level SPI drivers for MAX31865 RTD digital converters and K-type thermocouple ICs on STM32 hardware using direct register access.</li>
-            <li><strong>Multi-Sensor Acquisition:</strong> Engineered daisy-chained SPI communication with precise Chip Select (CS) line management to query continuous temperature feeds from dual hardware sensors concurrently.</li>
-            <li><strong>Memory & Execution Optimization:</strong> Structured custom linker script sections (`.text`, `.data`, `.bss`) to guarantee deterministic RAM usage and optimized vector table placement during microcontroller boot.</li>
-            <li><strong>Display & Telemetry Engine:</strong> Formatted real-time temperature metrics to display continuously on an integrated screen with sub-10ms acquisition latency.</li>
-          </ul>
-          <div class="project-tags">
-            <span class="ptag">Embedded C</span><span class="ptag">STM32</span><span class="ptag">ARM Cortex-M</span>
-            <span class="ptag">SPI Daisy-Chain</span><span class="ptag">PT100</span><span class="ptag">K-Type Thermocouple</span>
-            <span class="ptag">Linker Scripts</span><span class="ptag">Bare-Metal</span>
-          </div>
-          <a href="https://github.com/shashanksh1109" class="project-link" target="_blank">View Repository →</a>
-        </div>
-      </div>
-
       <!-- EMS PROJECT -->
       <div class="project-card featured">
         <div class="project-top">
@@ -1026,28 +994,6 @@ footer span{color:var(--cyan)}
           </div>
           <a href="ems.html" class="project-link">View Full Case Study →</a>
           <a href="https://github.com/shashanksh1109/embedded-energy-monitoring-system" class="project-link" target="_blank" style="margin-left:16px">GitHub →</a>
-        </div>
-      </div>
-
-      <!-- CAN BUS NETWORK DRIVER -->
-      <div class="project-card">
-        <div class="project-top">
-          <div class="project-badge">Automotive Protocols · Bare-Metal</div>
-          <div class="project-date">2026</div>
-        </div>
-        <div class="project-body">
-          <h3>Low-Level CAN Bus Communication Controller Driver</h3>
-          <div class="project-desc">Custom C driver supporting CAN 2.0A (Standard 11-bit ID) and Extended CAN 2.0B (29-bit ID) protocol frames with hardware acceptance filtering for microcontrollers.</div>
-          <ul class="project-bullets">
-            <li>Engineered frame encoding/decoding routines handling bit stuffing, DLC validation, CRC checks, and ACK verification at register-level interfaces.</li>
-            <li>Implemented multi-mailbox interrupt service routines (ISRs) for fault-tolerant message handling under high bus loads.</li>
-            <li>Configured custom baud-rate bit timing calculation tables based on microcontroller clock presets and propagation delays.</li>
-          </ul>
-          <div class="project-tags">
-            <span class="ptag">Embedded C</span><span class="ptag">CAN 2.0A / 2.0B</span><span class="ptag">Bit Timing</span>
-            <span class="ptag">ISR</span><span class="ptag">Acceptance Filters</span><span class="ptag">ARM Cortex-M</span>
-          </div>
-          <a href="https://github.com/shashanksh1109" class="project-link" target="_blank">View Repository →</a>
         </div>
       </div>
 
@@ -1129,16 +1075,17 @@ footer span{color:var(--cyan)}
         </div>
         <div class="project-body">
           <h3>Systems & Embedded Training Projects</h3>
-          <div class="project-desc">Production-quality systems programming projects covering embedded hardware, OS-level C, cryptography, and data structures. Each project is independently deployable and thoroughly tested.</div>
+          <div class="project-desc">Production-quality systems programming projects covering embedded hardware, OS-level C, cryptography, hardware interfaces, and data structures. Each project is independently deployable and thoroughly tested.</div>
           <ul class="project-bullets">
+            <li><strong>Bare-Metal Architecture & Linker Scripts:</strong> Implemented C drivers on ARM Cortex-M microcontrollers, directly configuring core registers, memory-mapped I/O, and custom linker script sections (<code>.text</code>, <code>.data</code>, <code>.bss</code>) for optimized boot execution.</li>
+            <li><strong>Hardware Sensor & Communication Drivers:</strong> Developed low-level drivers and register setups for UART, SPI (daisy-chaining), I2C, and CAN Bus (CAN 2.0A & Extended CAN 2.0B frame handling); interfaced PT100 (via MAX31865) and K-type thermocouple sensors with GPIO setup for real-time thermal telemetry.</li>
             <li><strong>Car Black Box (PIC16F877A / C):</strong> Real-time event logger capturing vehicle state during collisions into EEPROM via I2C; interrupt-driven system with digital dashboard and password authentication.</li>
-            <li><strong>MP3 Player (Linux / C):</strong> Console audio engine using POSIX threads, IPC signals, and ALSA library for smooth playback control and track navigation.</li>
-            <li><strong>Image Steganography (C):</strong> Hides encrypted payload bytes inside BMP image header/pixel regions using bitwise LSB substitution with integrity verification.</li>
-            <li><strong>Inverted Index Search Engine (C):</strong> High-performance text indexing pipeline built with linked lists and hash tables for instant file keyword search and frequency analysis.</li>
+            <li><strong>Systems & OS Programming:</strong> Built Linux C audio engine using POSIX threads, IPC signals, and ALSA; designed image steganography using bitwise LSB substitution and an inverted index search engine using linked lists and hash tables.</li>
           </ul>
           <div class="project-tags">
-            <span class="ptag">Embedded C</span><span class="ptag">PIC16F877A</span><span class="ptag">EEPROM</span>
-            <span class="ptag">I2C</span><span class="ptag">POSIX Threads</span><span class="ptag">Data Structures</span>
+            <span class="ptag">Embedded C</span><span class="ptag">ARM Cortex-M</span><span class="ptag">Linker Scripts</span>
+            <span class="ptag">CAN 2.0A/2.0B</span><span class="ptag">SPI Daisy-Chain</span><span class="ptag">PT100</span>
+            <span class="ptag">PIC16F877A</span><span class="ptag">I2C</span><span class="ptag">POSIX Threads</span>
           </div>
           <a href="https://github.com/shashanksh1109" class="project-link" target="_blank">View Repository →</a>
         </div>
