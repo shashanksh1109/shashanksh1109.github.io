@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shashank Sakrappa Hakari — Embedded & Software Engineer</title>
+<title>Shashank Sakrappa Hakari - Embedded & Software Engineer</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='15' fill='%230a0a0f'/><text x='50' y='68' font-size='42' font-family='monospace' font-weight='bold' fill='%2300d4ff' text-anchor='middle'>SSH</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -827,8 +827,8 @@ footer span{color:var(--cyan)}
     <div class="about-grid">
       <div class="about-text">
         <p>I'm an embedded and software engineer with hands-on experience spanning <strong>flight-critical firmware</strong> at Ducom Aerospace, <strong>IoT middleware</strong> for distributed sensor systems, and <strong>full-stack cloud infrastructure</strong> on AWS.</p>
-        <p>At Ducom, I developed bare-metal C firmware for ARM Cortex-M4 avionics systems — PID thermal control, FreeRTOS task scheduling, CAN/SPI/I2C/UART protocol drivers, and multi-layer PCB design. At Street Care, I built Python backend services and CI/CD pipelines.</p>
-        <p>My flagship project, the <strong>Distributed Energy Management System</strong>, covers the entire stack — from an 18-byte binary sensor protocol in embedded C all the way to a React dashboard on AWS with Terraform IaC and GitHub Actions CI/CD.</p>
+        <p>At Ducom, I developed bare-metal C firmware for ARM Cortex-M4 avionics systems PID thermal control, FreeRTOS task scheduling, CAN/SPI/I2C/UART protocol drivers, and multi-layer PCB design. At Street Care, I built Python backend services and CI/CD pipelines.</p>
+        <p>My flagship project, the <strong>Distributed Energy Management System</strong>, covers the entire stack from an 18-byte binary sensor protocol in embedded C all the way to a React dashboard on AWS with Terraform IaC and GitHub Actions CI/CD.</p>
         <p>Currently seeking full-time roles in <strong>embedded systems</strong>, <strong>IoT software</strong>, or <strong>backend + cloud engineering</strong>. H1B sponsorship required.</p>
       </div>
       <div class="about-cards">
@@ -983,7 +983,7 @@ footer span{color:var(--cyan)}
           <ul class="project-bullets">
             <li><strong>Embedded Firmware (C):</strong> Multi-node sensor firmware with PID HVAC controllers and a custom 18-byte struct-packed, CRC-validated binary protocol over TCP; hardware abstraction layer switches between simulated and real ESP32/DHT22 hardware via <code>--hardware</code> flag.</li>
             <li><strong>IoT Gateway (Python):</strong> Multi-threaded TCP server parsing binary packets via <code>struct</code>; circular buffer (1000 entries); real-time analytics engine (mean/stddev/min/max per zone every 60s); MQTT pub/sub; wolfSSL AES-TLS on all sensor links.</li>
-            <li><strong>Backend API (Java / Spring Boot):</strong> JWT-secured REST API with WebSocket real-time push, JPA/Hibernate over PostgreSQL; normalized time-series schema — sensor_readings, zones, hvac_events, analytics_summary.</li>
+            <li><strong>Backend API (Java / Spring Boot):</strong> JWT-secured REST API with WebSocket real-time push, JPA/Hibernate over PostgreSQL; normalized time-series schema, sensor_readings, zones, hvac events, analytics summary.</li>
             <li><strong>AWS Infrastructure (Terraform IaC):</strong> VPC, EC2, RDS PostgreSQL multi-AZ, S3, ALB, Auto Scaling Groups (2–10 instances); GitHub Actions CI/CD for C/Python/Java/Docker with Packer AMI builds — 90% reduction in manual ops.</li>
           </ul>
           <div class="project-tags">
@@ -1001,7 +1001,7 @@ footer span{color:var(--cyan)}
       <div class="project-card">
         <div class="project-top">
           <div class="project-badge">Cloud Native · Backend</div>
-          <div class="project-date">Jan 2025 — Mar 2025</div>
+          <div class="project-date">Jan 2025 - Mar 2025</div>
         </div>
         <div class="project-body">
           <h3>Cloud-Native Web Application</h3>
@@ -1009,7 +1009,7 @@ footer span{color:var(--cyan)}
           <ul class="project-bullets">
             <li>Spring Boot REST API on AWS EC2 backed by PostgreSQL on Amazon RDS for scalable data storage.</li>
             <li>Terraform IaC modules for AWS and GCP ensuring environment parity and reproducible deployments.</li>
-            <li>GitHub Actions CI/CD with Packer AMI builds, integration tests, CloudWatch monitoring, ALB + Auto Scaling Groups — 90% reduction in deployment effort.</li>
+            <li>GitHub Actions CI/CD with Packer AMI builds, integration tests, CloudWatch monitoring, ALB + Auto Scaling Groups 90% reduction in deployment effort.</li>
           </ul>
           <div class="project-tags">
             <span class="ptag">Spring Boot</span><span class="ptag">AWS</span><span class="ptag">Terraform</span>
@@ -1023,10 +1023,10 @@ footer span{color:var(--cyan)}
       <div class="project-card">
         <div class="project-top">
           <div class="project-badge">IoT · Distributed Systems</div>
-          <div class="project-date">2024 — Northeastern University</div>
+          <div class="project-date">2024 - Northeastern University</div>
         </div>
         <div class="project-body">
-          <h3>IoT Environmental Control System — Silkworm Monitor</h3>
+          <h3>IoT Environmental Control System - Silkworm Monitor</h3>
           <div class="project-desc">End-to-end distributed IoT platform for silkworm environmental monitoring and PID-based control. Multi-protocol implementation with cloud integration and persistent time-series data management.</div>
           <div class="project-metrics">
             <div class="metric"><span class="metric-val">99.8%</span><div class="metric-lbl">Message delivery</div></div>
@@ -1055,7 +1055,7 @@ footer span{color:var(--cyan)}
           <h3>Modular Embedded System Simulator</h3>
           <div class="project-desc">Qt-based modular simulator for real-time embedded component monitoring and control. Full OOP architecture applying Gang-of-Four design patterns throughout the system.</div>
           <ul class="project-bullets">
-            <li>Applied OOP principles — inheritance, polymorphism, abstraction, encapsulation — with STL containers for efficient state management.</li>
+            <li>Applied OOP principles - inheritance, polymorphism, abstraction, encapsulation with STL containers for efficient state management.</li>
             <li>Interactive Qt GUI with real-time component monitoring; MVC separation between hardware simulation logic and UI layer.</li>
             <li>Patterns: Observer (state monitoring), Factory (component creation), Singleton (resource management), Strategy (algorithm selection).</li>
           </ul>
